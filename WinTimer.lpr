@@ -256,9 +256,8 @@ begin
   if not IsWindow(MainWnd) then
   begin
     InitCommonControls;
-    MainWnd := CreateWindowEx(WS_EX_TOOLWINDOW, MainWndClassName, 'WinTimer',
-      WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-      0, 0, HInstance, nil);
+    MainWnd := CreateWindowEx(WS_EX_TOOLWINDOW, MainWndClassName, 'WinTimer', WS_OVERLAPPEDWINDOW,
+      CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, HInstance, nil);
     MainLoop;
   end;
 end.
