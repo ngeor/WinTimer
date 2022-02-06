@@ -14,7 +14,8 @@ const
 procedure Line(DC: HDC; left, top, right, bottom: integer; Color: longint);
 
 procedure DrawBitmap(DC: HDC; Pic: HBitMap; x, y, w, h: integer; Stretch: boolean);
-procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap; x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
+procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap;
+  x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
 
 procedure RaisedRect(DC: HDC; var R: TRect);
 procedure SunkRect(DC: HDC; var R: TRect);
@@ -69,7 +70,8 @@ begin
   Result := bm.bmHeight;
 end;
 
-procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap; x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
+procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap;
+  x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
 var
   MemDC: HDC;
   oldPic: HBitmap;
