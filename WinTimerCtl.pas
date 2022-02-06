@@ -18,7 +18,8 @@ const
 
 procedure GetWinTimerControlClass(var WndClass: TWndClass);
 procedure RegisterWinTimerControl;
-function WinTimerControlProc(Wnd: HWnd; Msg: UINT; wp: WPARAM; lp: LPARAM): LRESULT; stdcall;
+function WinTimerControlProc(Wnd: HWnd; Msg: UINT; wp: WPARAM;
+  lp: LPARAM): LRESULT; stdcall;
 procedure GetTimerText(Wnd: HWND; Buf: PChar);
 function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: integer): HWND;
 function WinTimerWidth: integer;
@@ -48,8 +49,9 @@ end;
 
 function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: integer): HWND;
 begin
-  Result := CreateWindowEx(WS_EX_STATICEDGE, WinTimerControlClassName, '', WS_CHILD or
-    WS_VISIBLE, ALeft, ATop, WinTimerWidth, WinTimerHeight, AParent, AnID, HInstance, nil);
+  Result := CreateWindowEx(WS_EX_STATICEDGE, WinTimerControlClassName,
+    '', WS_CHILD or WS_VISIBLE, ALeft, ATop, WinTimerWidth, WinTimerHeight,
+    AParent, AnID, HInstance, nil);
 end;
 
 procedure GetTimerText(Wnd: HWND; Buf: PChar);
@@ -85,7 +87,8 @@ begin
 
   while b > 0 do
   begin
-    DrawPartOfBitmap(PS.hDC, Pic, (Ord(Buf[b]) - 48) * 28, 0, 28, 50, (b - 1) * 28 + 2, 2, 0, 0, False);
+    DrawPartOfBitmap(PS.hDC, Pic, (Ord(Buf[b]) - 48) * 28, 0, 28, 50,
+      (b - 1) * 28 + 2, 2, 0, 0, False);
     b := b - 1;
   end;
 
