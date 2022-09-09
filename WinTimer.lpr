@@ -169,7 +169,7 @@ var
     end;
   end;
 
-  function MainWndProc(Wnd: HWnd; Msg: UINT; wp: WPARAM; lp: LPARAM): longint; stdcall;
+  function MainWndProc(Wnd: HWnd; Msg: UINT; wp: WPARAM; lp: LPARAM): Longint; stdcall;
   begin
     Result := 0;
     case Msg of

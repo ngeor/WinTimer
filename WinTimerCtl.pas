@@ -21,9 +21,9 @@ procedure RegisterWinTimerControl;
 function WinTimerControlProc(Wnd: HWnd; Msg: UINT; wp: WPARAM;
   lp: LPARAM): LRESULT; stdcall;
 procedure GetTimerText(Wnd: HWND; Buf: PChar);
-function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: integer): HWND;
-function WinTimerWidth: integer;
-function DigitCount: integer;
+function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: Integer): HWND;
+function WinTimerWidth: Integer;
+function DigitCount: Integer;
 
 implementation
 
@@ -32,22 +32,22 @@ uses Math;
 const
   ResName = 'DIGDISP';
 
-function DigitCount: integer;
+function DigitCount: Integer;
 var
-  hours: integer;
-  hourDigits: integer;
+  hours: Integer;
+  hourDigits: Integer;
 begin
   hours := GetTickCount div (1000 * 3600);
   hourDigits := Max(2, Round(log10(hours)));
   Result := 6 + hourDigits;
 end;
 
-function WinTimerWidth: integer;
+function WinTimerWidth: Integer;
 begin
   Result := DigitCount * DigitWidth + 5;
 end;
 
-function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: integer): HWND;
+function CreateWinTimerCtl(AParent: HWND; AnID, ALeft, ATop: Integer): HWND;
 begin
   Result := CreateWindowEx(WS_EX_STATICEDGE, WinTimerControlClassName,
     '', WS_CHILD or WS_VISIBLE, ALeft, ATop, WinTimerWidth, WinTimerHeight,
@@ -74,8 +74,8 @@ end;
 procedure WinTimerControl_Paint(Wnd: HWND);
 var
   PS: TPaintStruct;
-  Buf: ansistring;
-  b: integer;
+  Buf: Ansistring;
+  b: Integer;
   Pic: HBitmap;
 
 begin
@@ -95,7 +95,7 @@ begin
   EndPaint(Wnd, PS);
 end;
 
-function IntToMyStr(Num: integer): string;
+function IntToMyStr(Num: Integer): String;
 begin
   Str(Num, Result);
   if Num < 10 then
@@ -104,9 +104,9 @@ end;
 
 procedure WinTimerControl_Timer(Wnd: HWND);
 var
-  TimeElapsed: longint;
-  Hour, Min, Sec: integer;
-  Buf: array [0..8] of char;
+  TimeElapsed: Longint;
+  Hour, Min, Sec: Integer;
+  Buf: array [0..8] of Char;
 begin
   TimeElapsed := GetTickCount div 1000;
   Hour := TimeElapsed div 3600;
@@ -117,7 +117,7 @@ begin
   LStrCpy(Buf, PChar(IntToMyStr(Hour) + ':' + IntToMyStr(Min) + ':' + IntToMyStr(Sec)));
   SetWindowText(Wnd, Buf);
   InvalidateRect(Wnd, nil, False);
-  SendMessage(GetParent(Wnd), WTN_Timer, 0, longint(@Buf));
+  SendMessage(GetParent(Wnd), WTN_Timer, 0, Longint(@Buf));
 end;
 
 procedure WinTimerControl_Destroy(Wnd: HWND);

@@ -7,30 +7,30 @@ interface
 uses Windows;
 
 const
-  clWhite: longint = $00FFFFFF;
-  clGray: longint = $00808080;
-  clLtGray: longint = $00C0C0C0;
+  clWhite: Longint = $00FFFFFF;
+  clGray: Longint = $00808080;
+  clLtGray: Longint = $00C0C0C0;
 
-procedure Line(DC: HDC; left, top, right, bottom: integer; Color: longint);
+procedure Line(DC: HDC; left, top, right, bottom: Integer; Color: Longint);
 
-procedure DrawBitmap(DC: HDC; Pic: HBitMap; x, y, w, h: integer; Stretch: boolean);
+procedure DrawBitmap(DC: HDC; Pic: HBitMap; x, y, w, h: Integer; Stretch: Boolean);
 procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap;
-  x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
+  x1, y1, w1, h1, x2, y2, w2, h2: Integer; Stretch: Boolean);
 
 procedure RaisedRect(DC: HDC; var R: TRect);
 procedure SunkRect(DC: HDC; var R: TRect);
 
-procedure CarreEffect(DC: HDC; hPic: HBITMAP; BlockX, BlockY: integer);
-procedure CarreEffectThread(DC: HDC; hPic: HBITMAP; BlockX, BlockY: integer);
-procedure WallpaperFill(DC: HDC; hPic: HBITMAP; Width, Height: integer);
+procedure CarreEffect(DC: HDC; hPic: HBITMAP; BlockX, BlockY: Integer);
+procedure CarreEffectThread(DC: HDC; hPic: HBITMAP; BlockX, BlockY: Integer);
+procedure WallpaperFill(DC: HDC; hPic: HBITMAP; Width, Height: Integer);
 
 function BitmapSize(hPic: HBITMAP): TSize;
-function BitmapWidth(hPic: HBITMAP): integer;
-function BitmapHeight(hPic: HBITMAP): integer;
+function BitmapWidth(hPic: HBITMAP): Integer;
+function BitmapHeight(hPic: HBITMAP): Integer;
 
 implementation
 
-procedure Line(DC: HDC; left, top, right, bottom: integer; Color: longint);
+procedure Line(DC: HDC; left, top, right, bottom: Integer; Color: Longint);
 var
   MyPen, OldPen: HPen;
   p: PPoint;
@@ -54,7 +54,7 @@ begin
   Result.cy := bm.bmHeight;
 end;
 
-function BitmapWidth(hPic: HBITMAP): integer;
+function BitmapWidth(hPic: HBITMAP): Integer;
 var
   bm: TBitmap;
 begin
@@ -62,7 +62,7 @@ begin
   Result := bm.bmWidth;
 end;
 
-function BitmapHeight(hPic: HBITMAP): integer;
+function BitmapHeight(hPic: HBITMAP): Integer;
 var
   bm: TBitmap;
 begin
@@ -71,7 +71,7 @@ begin
 end;
 
 procedure DrawPartOfBitmap(DC: HDC; Pic: HBitMap;
-  x1, y1, w1, h1, x2, y2, w2, h2: integer; Stretch: boolean);
+  x1, y1, w1, h1, x2, y2, w2, h2: Integer; Stretch: Boolean);
 var
   MemDC: HDC;
   oldPic: HBitmap;
@@ -86,7 +86,7 @@ begin
   DeleteDC(MemDC);
 end;
 
-procedure DrawBitmap(DC: HDC; Pic: HBitMap; x, y, w, h: integer; Stretch: boolean);
+procedure DrawBitmap(DC: HDC; Pic: HBitMap; x, y, w, h: Integer; Stretch: Boolean);
 var
   S: TSize;
 begin
@@ -127,15 +127,15 @@ type
   TCarreEffectParam = record
     DC: HDC;
     hPic: HBITMAP;
-    BlockX: integer;
-    BlockY: integer;
+    BlockX: Integer;
+    BlockY: Integer;
   end;
 
-function CarreEffectFun(c: PCarreEffectParam): longint; stdcall;
+function CarreEffectFun(c: PCarreEffectParam): Longint; stdcall;
 var
-  x, y, BlocksFilled: integer;
-  w, h: double;
-  Blocks: array of array of boolean;
+  x, y, BlocksFilled: Integer;
+  w, h: Double;
+  Blocks: array of array of Boolean;
   bm: TBitmap;
 begin
   GetObject(c^.hPic, SizeOf(bm), @bm);
@@ -163,7 +163,7 @@ begin
   Dispose(c);
 end;
 
-procedure CarreEffect(DC: HDC; hPic: HBITMAP; BlockX, BlockY: integer);
+procedure CarreEffect(DC: HDC; hPic: HBITMAP; BlockX, BlockY: Integer);
 var
   param: PCarreEffectParam;
 begin
@@ -175,7 +175,7 @@ begin
   CarreEffectFun(param);
 end;
 
-procedure CarreEffectThread(DC: HDC; hPic: HBITMAP; BlockX, BlockY: integer);
+procedure CarreEffectThread(DC: HDC; hPic: HBITMAP; BlockX, BlockY: Integer);
 var
   ThreadID: DWORD;
   param: PCarreEffectParam;
@@ -188,10 +188,10 @@ begin
   CreateThread(nil, 0, @CarreEffectFun, param, 0, ThreadID);
 end;
 
-procedure WallpaperFill(DC: HDC; hPic: HBITMAP; Width, Height: integer);
+procedure WallpaperFill(DC: HDC; hPic: HBITMAP; Width, Height: Integer);
 var
   S: TSize;
-  x, y: integer;
+  x, y: Integer;
 begin
   S := BitmapSize(hPic);
   x := 0;
@@ -206,7 +206,7 @@ begin
   until y >= Height;
 end;
 
-procedure SlideImage(DC: HDC; hPic: HBITMAP; x1, y1, x2, y2: integer);
+procedure SlideImage(DC: HDC; hPic: HBITMAP; x1, y1, x2, y2: Integer);
 begin
 end;
 
